@@ -1,5 +1,5 @@
 //
-//  TokenService.swift
+//  AuthorizationService.swift
 //  UnspAuthoriztion
 //
 //  Created by Malik Timurkaev on 26.09.2025.
@@ -8,11 +8,11 @@
 import Foundation
 
 // MARK: - Service API
-protocol TokenServiceProtocol {
-    func fetch(using code: String) async  throws -> TokenDTO
+protocol AuthorizationServiceProtocol {
+    func fetchToken(using code: String) async  throws -> TokenDTO
 }
 
-final class TokenService: TokenServiceProtocol {
+final class AuthorizationService: AuthorizationServiceProtocol {
     
     /// ⚠️ В реальном приложении здесь должен быть клиент бэкенда,
     /// который держит client_secret и делает обмен code→token на сервере.
@@ -20,7 +20,7 @@ final class TokenService: TokenServiceProtocol {
     private let myBackendImitation = BackendImitatingService()
     
 #warning("Make retry functionality based on 'response.statusCode' (e.g., 500/502/503 with backoff)")
-    func fetch(using code: String) async throws(AuthError) -> TokenDTO {
+    func fetchToken(using code: String) async throws(AuthError) -> TokenDTO {
         
         do {
             let (data, response) = try await myBackendImitation.fetchToken(using: code)
