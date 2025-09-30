@@ -8,7 +8,6 @@
 
 import ProjectDescription
 
-
 public enum Targets {
     public static let appTarget = Target.target(
         name: ProjectConstants.appName,
@@ -22,7 +21,7 @@ public enum Targets {
             ]),
         sources: [Source.appSources, Source.appLifecycle],
         resources: [Resource.appResources],
-        dependencies: [],
+        dependencies: [.external(name: SPMDependency.valet.name)],
         settings: .settings(base: BuildFlags.base),
     )
 }

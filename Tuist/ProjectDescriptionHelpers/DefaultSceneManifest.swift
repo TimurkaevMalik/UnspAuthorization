@@ -8,7 +8,6 @@
 
 import ProjectDescription
 
-
 public let defaultSceneManifest: [String: Plist.Value] = [
     appSupportsMultipleScenes: .boolean(false),
     sceneConfigurations: .dictionary([

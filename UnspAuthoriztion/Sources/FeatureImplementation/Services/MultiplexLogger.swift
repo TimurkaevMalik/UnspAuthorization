@@ -8,7 +8,7 @@
 import OSLog
 
 ///TODO: move to a separate module
-protocol Logging {
+protocol LoggerProtocol {
     typealias LogMessage = () -> String
     
     func log( _ message: @autoclosure @escaping LogMessage, level: LogLevel)
@@ -36,7 +36,7 @@ final class OSLogAdapter: LoggerSink {
     }
 }
 
-final class MultiplexLogger: Logging {
+final class MultiplexLogger: LoggerProtocol {
     
     private let logLevel: LogLevel = {
 #if DEBUG

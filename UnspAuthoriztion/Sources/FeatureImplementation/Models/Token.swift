@@ -21,12 +21,12 @@ struct TokenDTO: Decodable {
 }
 
 // MARK: - Domain
-struct Token {
+struct Token: Codable {
     let token: String
     let type: TokenType
     let createdAt: Date
     
-    enum TokenType: String, CaseIterable {
+    enum TokenType: String, Codable {
         case bearer = "Bearer"
         case unknown = "unknown"
     }

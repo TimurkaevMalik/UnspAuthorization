@@ -1,7 +1,6 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-
 let appName = ProjectConstants.appName
 
 let project = Project(

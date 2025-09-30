@@ -8,7 +8,6 @@
 
 import ProjectDescription
 
-
 public enum BuildFlags {
     public static let base: SettingsDictionary = [
         "SWIFT_VERSION": "6",

@@ -8,7 +8,6 @@
 
 import ProjectDescription
 
-
 public struct ProjectConstants {
     public static let appName = "UnspAuthoriztion"
     public static let bundleID = "dev.tuist.\(appName)"

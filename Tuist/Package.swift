@@ -9,18 +9,25 @@ import enum ProjectDescription.Environment
 import ProjectDescriptionHelpers
 
 let packageSettings = PackageSettings(
-    productTypes: [:]
+    productTypes: [SPMDependency.valet.name: .framework]
 )
 #endif
 
 /// MARK: - Package
 let package = Package(
     name: "UnspAuthoriztion",
-    dependencies: []
+    dependencies: [
+        .make(from: SPMDependency.valet)
+    ]
 )
 
 /// MARK: - Dependencies
-fileprivate enum SPMDependency {}
+fileprivate enum SPMDependency {
+    static let valet = PackageModel(
+        name: "Valet",
+        url: "https://github.com/square/Valet.git",
+        requirement: .version(.init(5, 0, 0)))
+}
 
 fileprivate struct PackageModel: Sendable {
     let name: String
@@ -57,5 +64,24 @@ fileprivate extension Version {
         let patch = "\(patch)"
         
         return major + "." + minor + "." + patch
+    }
+    
+    init(string: String) {
+        self.init(stringLiteral: string)
+    }
+}
+
+fileprivate extension Package.Dependency {
+    static func make(from package: PackageModel) -> Package.Dependency {
+        let url = package.url
+        let requirement = package.requirement.string
+        
+        switch package.requirement {
+            
+        case .version:
+                return .package(url: url, from: .init(string: requirement))
+        case .branch:
+                return .package(url: url, branch: requirement)
+        }
     }
 }

@@ -8,44 +8,40 @@
 import Foundation
 
 protocol TokenRepositoryProtocol {
-    func fetchToken(using code: String) async throws
-    func currentToken() -> Token?
+    func fetchToken(using code: String) async throws -> Token
+    func currentToken() throws -> Token?
     func clearToken() throws
-}
-
-protocol TokenStorageProtocol {
-    func save(_ token: Token) throws
-    func load() -> Token
-    func clear() throws
 }
 
 final class TokenRepository: TokenRepositoryProtocol {
     
-    let logger: MultiplexLogger
-    let authorizationService: AuthorizationServiceProtocol
-    let tokenStorage: TokenStorageProtocol
+    private let logger: LoggerProtocol?
+    private let authorizationService: AuthorizationServiceProtocol
+    private let tokenStorage: KeychainStorageProtocol
     
     init(
         authorizationService: AuthorizationServiceProtocol,
-        tokenStorage: TokenStorageProtocol,
-        logers: [LoggerSink]
+        tokenStorage: KeychainStorageProtocol,
+        logger: LoggerProtocol? = nil
     ) {
+        self.logger = logger
         self.authorizationService = authorizationService
         self.tokenStorage = tokenStorage
-        self.logger = MultiplexLogger(loggers: logers)
     }
     
-    func fetchToken(using code: String) async throws {
+    func fetchToken(using code: String) async throws -> Token {
         let tokenDTO = try await authorizationService.fetchToken(using: code)
         let token = Token(dto: tokenDTO)
+        try tokenStorage.set(token, forKey: "SOMEKEY")
+        return token
     }
     
-    func currentToken() -> Token? {
-        tokenStorage.load()
+    func currentToken() throws -> Token? {
+        try tokenStorage.loadValue(forKey: "SOMEKEY")
     }
     
     func clearToken() throws {
-        try tokenStorage.clear()
+        try tokenStorage.removeObject(forKey: "SOMEKEY")
     }
 }
 
@@ -58,11 +54,11 @@ extension TokenRepository {
 private extension TokenRepository {
     func validate(_ token: Token) throws(RepoError) {
         guard !token.token.isEmpty else {
-            logger.notice("Empty token")
+            logger?.notice("Empty token")
             throw .emptyToken
         }
         guard token.type != .unknown else {
-            logger.notice("Unknown token type")
+            logger?.notice("Unknown token type")
             return
         }
     }

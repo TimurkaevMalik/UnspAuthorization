@@ -8,8 +8,12 @@
 
 import ProjectDescription
 
-
-public enum SPMDependency {}
+public enum SPMDependency {
+    static let valet = PackageModel(
+        name: "Valet",
+        url: "https://github.com/square/Valet.git",
+        requirement: .version(.init(5, 0, 0)))
+}
 
 public struct PackageModel: Sendable {
     public let name: String
