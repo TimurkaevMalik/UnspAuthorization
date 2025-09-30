@@ -4,20 +4,21 @@ import PackageDescription
 ///MARK: - PackageSettings
 #if TUIST
 import struct ProjectDescription.PackageSettings
-import enum ProjectDescription.Product
-import enum ProjectDescription.Environment
-import ProjectDescriptionHelpers
 
 let packageSettings = PackageSettings(
-    productTypes: [SPMDependency.valet.name: .framework]
+    productTypes: [
+        SPMDependency.valet.name: .framework,
+        SPMDependency.loggingKit.name: .framework
+    ]
 )
 #endif
 
 /// MARK: - Package
 let package = Package(
-    name: "UnspAuthoriztion",
+    name: "UnspAuthorization",
     dependencies: [
-        .make(from: SPMDependency.valet)
+        .make(from: SPMDependency.valet),
+        .make(from: SPMDependency.loggingKit)
     ]
 )
 
@@ -26,7 +27,14 @@ fileprivate enum SPMDependency {
     static let valet = PackageModel(
         name: "Valet",
         url: "https://github.com/square/Valet.git",
-        requirement: .version(.init(5, 0, 0)))
+        requirement: .version(.init(5, 0, 0))
+    )
+    
+    static let loggingKit = PackageModel(
+        name: "LoggingKit",
+        url: "https://github.com/TimurkaevMalik/LoggingKit.git",
+        requirement: .version(.init(1, 0, 0))
+    )
 }
 
 fileprivate struct PackageModel: Sendable {

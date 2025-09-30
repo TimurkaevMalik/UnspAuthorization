@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import LoggingKit
 
 protocol TokenRepositoryProtocol {
     func fetchToken(using code: String) async throws -> Token

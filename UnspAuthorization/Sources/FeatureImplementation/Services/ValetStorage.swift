@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import LoggingKit
 import Valet
 
+// TODO: - Move to a separate module
 protocol KeychainStorageProtocol {
     typealias CustomError = KeychainServiceError
     func set<T: Encodable>(_ value: T, forKey key: String) throws(CustomError)
@@ -26,7 +28,7 @@ final class ValetStorage: KeychainStorageProtocol {
          accessibility: KeychainAccessibility,
          logers: [LoggerSink]
     ) {
-        logger = logers.isEmpty ? nil : MultiplexLogger(loggers: logers)
+        logger = logers.isEmpty ? nil : RootCompositeLogger(loggers: logers)
         self.valet = Valet.valet(with: id, accessibility: accessibility.valetValue)
     }
     

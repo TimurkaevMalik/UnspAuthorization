@@ -5,7 +5,6 @@
 //  Created by Malik Timurkaev on 26.09.2025.
 //
 
-
 import ProjectDescription
 
 public enum Targets {
@@ -21,7 +20,10 @@ public enum Targets {
             ]),
         sources: [Source.appSources, Source.appLifecycle],
         resources: [Resource.appResources],
-        dependencies: [.external(name: SPMDependency.valet.name)],
+        dependencies: [
+            .external(name: SPMDependency.valet.name),
+            .external(name: SPMDependency.loggingKit.name)
+        ],
         settings: .settings(base: BuildFlags.base),
     )
 }

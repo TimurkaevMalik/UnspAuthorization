@@ -5,7 +5,6 @@
 //  Created by Malik Timurkaev on 26.09.2025.
 //
 
-
 import ProjectDescription
 
 public enum SPMDependency {
@@ -13,6 +12,12 @@ public enum SPMDependency {
         name: "Valet",
         url: "https://github.com/square/Valet.git",
         requirement: .version(.init(5, 0, 0)))
+    
+    static let loggingKit = PackageModel(
+        name: "LoggingKit",
+        url: "https://github.com/TimurkaevMalik/LoggingKit.git",
+        requirement: .version(.init(1, 0, 0))
+    )
 }
 
 public struct PackageModel: Sendable {
