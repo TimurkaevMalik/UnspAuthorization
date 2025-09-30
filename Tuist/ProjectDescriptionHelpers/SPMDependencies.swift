@@ -18,6 +18,12 @@ public enum SPMDependency {
         url: "https://github.com/TimurkaevMalik/LoggingKit.git",
         requirement: .version(.init(1, 0, 0))
     )
+    
+    static let keychainStorageKit = PackageModel(
+        name: "KeychainStorageKit",
+        url: "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
+        requirement: .version(.init(1, 0, 0))
+    )
 }
 
 public struct PackageModel: Sendable {

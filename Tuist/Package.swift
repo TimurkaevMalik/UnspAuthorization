@@ -8,7 +8,8 @@ import struct ProjectDescription.PackageSettings
 let packageSettings = PackageSettings(
     productTypes: [
         SPMDependency.valet.name: .framework,
-        SPMDependency.loggingKit.name: .framework
+        SPMDependency.loggingKit.name: .framework,
+        SPMDependency.keychainStorageKit.name: .framework
     ]
 )
 #endif
@@ -18,7 +19,8 @@ let package = Package(
     name: "UnspAuthorization",
     dependencies: [
         .make(from: SPMDependency.valet),
-        .make(from: SPMDependency.loggingKit)
+        .make(from: SPMDependency.loggingKit),
+        .make(from: SPMDependency.keychainStorageKit)
     ]
 )
 
@@ -33,6 +35,12 @@ fileprivate enum SPMDependency {
     static let loggingKit = PackageModel(
         name: "LoggingKit",
         url: "https://github.com/TimurkaevMalik/LoggingKit.git",
+        requirement: .version(.init(1, 0, 0))
+    )
+    
+    static let keychainStorageKit = PackageModel(
+        name: "KeychainStorageKit",
+        url: "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
         requirement: .version(.init(1, 0, 0))
     )
 }
