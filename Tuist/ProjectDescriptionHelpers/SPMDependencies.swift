@@ -24,6 +24,12 @@ public enum SPMDependency {
         url: "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
         requirement: .version(.init(1, 0, 0))
     )
+    
+    static let fontsKit = PackageModel(
+        name: "FontsKit",
+        url: "https://github.com/TimurkaevMalik/FontsKit.git",
+        requirement: .version(.init(1, 1, 0))
+    )
 }
 
 public struct PackageModel: Sendable {

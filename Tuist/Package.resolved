@@ -1,6 +1,15 @@
 {
-  "originHash" : "e5044be408be92780c6fc5a138b6b090d2b0c1a8a26e07ade30da2957ca50089",
+  "originHash" : "f785d3651c97614279813b422e63966377fced6f70abddba46f6d3f4f084aacb",
   "pins" : [
+    {
+      "identity" : "fontskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TimurkaevMalik/FontsKit.git",
+      "state" : {
+        "revision" : "89bda4fa73e5700ea89eba366df08fba1a4b70c6",
+        "version" : "1.1.0"
+      }
+    },
     {
       "identity" : "keychainstoragekit",
       "kind" : "remoteSourceControl",
@@ -15,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TimurkaevMalik/LoggingKit.git",
       "state" : {
-        "revision" : "d2ce234ac6df402d0f2b965adc6952fa63536a73",
-        "version" : "1.0.0"
+        "revision" : "4faa18b5d160912738c0b382719b4b7832a16bf7",
+        "version" : "1.1.0"
       }
     },
     {

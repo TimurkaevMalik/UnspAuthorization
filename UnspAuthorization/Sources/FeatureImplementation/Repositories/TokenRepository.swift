@@ -34,6 +34,7 @@ final class TokenRepository: TokenRepositoryProtocol {
     func fetchToken(using code: String) async throws -> Token {
         let tokenDTO = try await authorizationService.fetchToken(using: code)
         let token = Token(dto: tokenDTO)
+        try validate(token)
         try tokenStorage.set(token, forKey: "SOMEKEY")
         return token
     }
