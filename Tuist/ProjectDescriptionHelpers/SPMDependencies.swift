@@ -30,6 +30,12 @@ public enum SPMDependency {
         url: "https://github.com/TimurkaevMalik/FontsKit.git",
         requirement: .version(.init(1, 1, 0))
     )
+    
+    static let snapKit = PackageModel(
+        name: "SnapKit",
+        url: "https://github.com/SnapKit/SnapKit.git",
+        requirement: .version(.init(5, 7, 0))
+    )
 }
 
 public struct PackageModel: Sendable {

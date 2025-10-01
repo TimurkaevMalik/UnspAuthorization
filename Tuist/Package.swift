@@ -8,6 +8,7 @@ import struct ProjectDescription.PackageSettings
 let packageSettings = PackageSettings(
     productTypes: [
         SPMDependency.valet.name: .framework,
+        SPMDependency.snapKit.name: .framework,
         SPMDependency.fontsKit.name: .framework,
         SPMDependency.loggingKit.name: .framework,
         SPMDependency.keychainStorageKit.name: .framework
@@ -20,6 +21,7 @@ let package = Package(
     name: "UnspAuthorization",
     dependencies: [
         .make(from: SPMDependency.valet),
+        .make(from: SPMDependency.snapKit),
         .make(from: SPMDependency.fontsKit),
         .make(from: SPMDependency.loggingKit),
         .make(from: SPMDependency.keychainStorageKit)
@@ -50,6 +52,12 @@ fileprivate enum SPMDependency {
         name: "FontsKit",
         url: "https://github.com/TimurkaevMalik/FontsKit.git",
         requirement: .version(.init(1, 1, 0))
+    )
+    
+    static let snapKit = PackageModel(
+        name: "SnapKit",
+        url: "https://github.com/SnapKit/SnapKit.git",
+        requirement: .version(.init(5, 7, 0))
     )
 }
 
