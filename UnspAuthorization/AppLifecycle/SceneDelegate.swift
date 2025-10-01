@@ -11,6 +11,7 @@ import UIKit
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    var rootCoordinator: UnspCoordinatorProtocol?
     
     func scene(
         _ scene: UIScene,
@@ -18,8 +19,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = scene as? UIWindowScene else { return }
+        
+        let navigation = UINavigationController()
+        let coordinator = RootUnspCoordinator(navigation: navigation)
+        
+        rootCoordinator = coordinator
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = AuthorizationViewController()
+        window?.rootViewController = navigation
+        coordinator.start()
         window?.makeKeyAndVisible()
     }
 }
