@@ -32,7 +32,8 @@ extension RootUnspCoordinator {
     }
     
     func showAuthorizationScreen() {
-        let controller = AuthorizationViewController()
+        let viewModel = AuthorizationViewModel(authConfig: .defaultConfig)
+        let controller = AuthorizationViewController(viewModel: viewModel)
         navigation.pushViewController(controller, animated: true)
     }
 }

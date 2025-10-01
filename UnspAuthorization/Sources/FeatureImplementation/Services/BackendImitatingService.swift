@@ -37,20 +37,23 @@ final class BackendImitatingService {
     
     func makeURL(with codeValue: String) -> URLRequest? {
         
-        let clientId = "client_id"
-        let clientSecret = "client_secret"
-        let redirectURI = QueryItemNames.redirectURI.rawValue
-        let grantType = QueryItemNames.grantType.rawValue
+        let clientSecretName = "client_secret"
+        let clientIDName = QueryItemNames.clientID.rawValue
+        let redirectURIName = QueryItemNames.redirectURI.rawValue
+        let grantTypeName = QueryItemNames.grantType.rawValue
         let codeName = QueryItemNames.code.rawValue
+        
+        let redirectURI = AuthConstants.redirectURI
+        let authorizationCode = AuthConstants.authorizationCode
         
         let builder = URLBuilder()
             .scheme(Scheme.https.rawValue)
             .host(Host.unsplash.rawValue)
             .path(Path.build([.oauth, .token]))
-            .queryItem(name: clientId, value: accessKey)
-            .queryItem(name: clientSecret, value: secretKey)
-            .queryItem(name: redirectURI, value: "urn:ietf:wg:oauth:2.0:oob")
-            .queryItem(name: grantType, value: "authorization_code")
+            .queryItem(name: clientIDName, value: accessKey)
+            .queryItem(name: clientSecretName, value: secretKey)
+            .queryItem(name: redirectURIName, value: redirectURI)
+            .queryItem(name: grantTypeName, value: authorizationCode)
             .queryItem(name: codeName, value: codeValue)
         
         guard let url = builder.build() else { return nil }

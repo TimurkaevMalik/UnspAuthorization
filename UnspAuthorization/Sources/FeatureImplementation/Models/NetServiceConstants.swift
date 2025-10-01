@@ -33,8 +33,14 @@ enum Path: String {
         paths.map({ $0.rawValue }).joined(separator: "/")
     }
 }
+enum AuthConstants {
+    static let clientID = "Ix8DGsN3icXmar5IMI1Hwy0G2L8MotFf93HczcjVPOk"
+    static let redirectURI = "urn:ietf:wg:oauth:2.0:oob"
+    static let authorizationCode = "authorization_code"
+}
 
 enum QueryItemNames: String {
+    case clientID = "client_id"
     case grantType = "grant_type"
     case redirectURI = "redirect_uri"
     case responseType = "response_type"
