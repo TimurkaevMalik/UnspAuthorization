@@ -25,7 +25,7 @@ final class BackendImitatingService {
     private let accessKey = "Ix8DGsN3icXmar5IMI1Hwy0G2L8MotFf93HczcjVPOk"
     private let secretKey = "gES-oqwCmHGffOoObk03kstACihBSBn9jKpo77N7wTg"
     
-    func fetchToken(using code: String) async throws(AuthError) -> (Data, URLResponse) {
+    func fetchToken(with code: String) async throws(AuthError) -> (Data, URLResponse) {
         guard let request = makeURL(with: code) else { throw .invalidURL }
         
         do {

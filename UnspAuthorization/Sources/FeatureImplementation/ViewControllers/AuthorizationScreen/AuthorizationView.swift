@@ -9,7 +9,19 @@ import Foundation
 import SnapKit
 import WebKit
 
+enum AuthenticationError: Error {
+    case missingCode
+}
+
+@MainActor
+protocol AuthorizationViewOutput: AnyObject {
+    func didReceiveAuthorizationCode(_ code: String)
+    func didFailAuthorization(with error: AuthenticationError)
+}
+
 final class AuthorizationView: UIView {
+    
+    private weak var output: AuthorizationViewOutput?
     
     private lazy var webView = {
         let uiView = WKWebView()
@@ -20,8 +32,9 @@ final class AuthorizationView: UIView {
     
     let urlRequest: URLRequest
     
-    init(request: URLRequest) {
+    init(request: URLRequest, output: AuthorizationViewOutput?) {
         urlRequest = request
+        self.output = output
         super.init(frame: .zero)
     }
     
@@ -67,9 +80,11 @@ private extension AuthorizationView {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let code = components.queryItems?.first(where: { $0.name == "code" })?.value
         else {
+            output?.didFailAuthorization(with: .missingCode)
             return
         }
         
         webView.stopLoading()
+        output?.didReceiveAuthorizationCode(code)
     }
 }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "27288e95d9df50338d06c59c1410ffff0d5022d9787201ec30f31b6b3ae63fc8",
+  "originHash" : "0406e2b3f4654fb4bcd5b68b3c7f3ad91d5ed22d8aea455eff591a79d787180c",
   "pins" : [
     {
       "identity" : "fontskit",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
       "state" : {
-        "revision" : "5b5322a841c026ca3c9b985b6f756c1bd0054d5b",
-        "version" : "1.0.0"
+        "revision" : "cbacba7b1c6a4af3ecd197131ceaf2f0f6d75ad5",
+        "version" : "1.1.2"
       }
     },
     {

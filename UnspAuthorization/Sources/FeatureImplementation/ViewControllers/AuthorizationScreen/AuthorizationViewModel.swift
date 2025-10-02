@@ -9,21 +9,36 @@ import Foundation
 
 protocol AuthorizationViewModelProtocol {
     var authorizationUrlRequest: URLRequest? { get }
+    func fetchToken(with code: String)
 }
 
 final class AuthorizationViewModel: AuthorizationViewModelProtocol {
     
+    
     private let authConfig: AuthenticationConfig
+    private let tokenRepository: TokenRepositoryProtocol
     
     lazy var authorizationUrlRequest: URLRequest?  = {
         return buildURLRequest()
     }()
     
-    init(authConfig: AuthenticationConfig) {
+    init(
+        authConfig: AuthenticationConfig,
+        tokenRepository: TokenRepositoryProtocol
+    ) {
         self.authConfig = authConfig
+        self.tokenRepository = tokenRepository
     }
     
-    private func buildURLRequest() -> URLRequest? {
+    func fetchToken(with code: String) {
+        Task {
+            try await tokenRepository.fetchToken(with: code)
+        }
+    }
+}
+
+private extension AuthorizationViewModel {
+    func buildURLRequest() -> URLRequest? {
         let clientIDName = QueryItemNames.clientID.rawValue
         let redirectURIName = QueryItemNames.redirectURI.rawValue
         let scopeName = QueryItemNames.scope.rawValue

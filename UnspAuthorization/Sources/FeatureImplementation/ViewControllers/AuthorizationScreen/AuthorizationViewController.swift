@@ -13,7 +13,7 @@ final class AuthorizationViewController: UIViewController {
     
     private lazy var rootView: AuthorizationView? = {
         if let request = vm.authorizationUrlRequest {
-            let uiView = AuthorizationView(request: request)
+            let uiView = AuthorizationView(request: request, output: self)
             return uiView
         } else {
             return nil
@@ -48,5 +48,15 @@ final class AuthorizationViewController: UIViewController {
         super.viewDidAppear(animated)
         rootView?.setupUI()
         rootView?.loadAuthorizationPage()
+    }
+}
+
+extension AuthorizationViewController: AuthorizationViewOutput {
+    func didReceiveAuthorizationCode(_ code: String) {
+        vm.fetchToken(with: code)
+    }
+    
+    func didFailAuthorization(with error: AuthenticationError) {
+        dismiss(animated: true)
     }
 }

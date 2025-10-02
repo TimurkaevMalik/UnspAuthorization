@@ -45,7 +45,7 @@ fileprivate enum SPMDependency {
     static let keychainStorageKit = PackageModel(
         name: "KeychainStorageKit",
         url: "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
-        requirement: .version(.init(1, 0, 0))
+        requirement: .version(.init(1, 1, 2))
     )
     
     static let fontsKit = PackageModel(

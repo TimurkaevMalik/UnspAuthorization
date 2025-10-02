@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Service API
 protocol AuthorizationServiceProtocol {
-    func fetchToken(using code: String) async  throws -> TokenDTO
+    func fetchToken(with code: String) async  throws -> AuthResponseDTO
 }
 
 final class AuthorizationService: AuthorizationServiceProtocol {
@@ -20,10 +20,10 @@ final class AuthorizationService: AuthorizationServiceProtocol {
     private let myBackendImitation = BackendImitatingService()
     
 #warning("Make retry functionality based on 'response.statusCode' (e.g., 500/502/503 with backoff)")
-    func fetchToken(using code: String) async throws(AuthError) -> TokenDTO {
+    func fetchToken(with code: String) async throws(AuthError) -> AuthResponseDTO {
         
         do {
-            let (data, response) = try await myBackendImitation.fetchToken(using: code)
+            let (data, response) = try await myBackendImitation.fetchToken(with: code)
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw AuthError.transport(underlying: URLError(.badServerResponse))
@@ -33,7 +33,7 @@ final class AuthorizationService: AuthorizationServiceProtocol {
             }
             
             do {
-                return try JSONDecoder().decode(TokenDTO.self, from: data)
+                return try JSONDecoder().decode(AuthResponseDTO.self, from: data)
             } catch {
                 throw AuthError.decodingFailed(underlying: error)
             }
