@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import KeychainStorageKit
 
 @MainActor
 protocol UnspCoordinatorProtocol {
@@ -51,27 +50,5 @@ extension RootUnspCoordinator {
 extension RootUnspCoordinator: AuthEntryViewControllerOutput {
     func authEntryDidRequestStartAuth() {
         showAuthorizationScreen()
-    }
-}
-
-import LoggingKit
-
-protocol KeychainStorageFactoryProtocol {
-    func make(with identifier: String) -> KeychainStorageProtocol?
-}
-
-final class KeychainStorageFactory: KeychainStorageFactoryProtocol {
-    ///id нужен для изоляции данных нескольких пользователей одного приложения
-    func make(with id: String) -> KeychainStorageProtocol? {
-        let logger = OSLogAdapter(
-            subsystem: "com.yourcompany.unspauthorization",
-            category: ""
-        )
-        
-        return ValetStorage(
-            id: id,
-            accessibility: .whenUnlockedThisDeviceOnly,
-            logger: RootCompositeLogger(loggers: [logger])
-        )
     }
 }

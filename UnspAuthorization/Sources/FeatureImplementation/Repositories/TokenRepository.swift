@@ -11,8 +11,9 @@ import KeychainStorageKit
 
 protocol TokenRepositoryProtocol {
     func fetchToken(with code: String) async throws -> Token
-    func currentToken() throws -> Token?
-    func clearToken() throws
+    func currentToken(forKey key: StorageKeys) throws -> Token?
+    func clearAccessToken() throws
+    func clearRefreshToken() throws
 }
 
 final class TokenRepository: TokenRepositoryProtocol {
@@ -20,16 +21,19 @@ final class TokenRepository: TokenRepositoryProtocol {
     private let logger: LoggerProtocol?
     private let authorizationService: AuthorizationServiceProtocol
     private let tokenStorageFactory: KeychainStorageFactoryProtocol
+    private let preferences: PreferencesProtocol
     
     private var tokenStorage: KeychainStorageProtocol?
     
     init(
         authorizationService: AuthorizationServiceProtocol,
         tokenStorageFactory: KeychainStorageFactoryProtocol,
+        preferences: PreferencesProtocol = UserDefaults.standard,
         logger: LoggerProtocol? = nil
     ) {
         self.logger = logger
         self.authorizationService = authorizationService
+        self.preferences = preferences
         self.tokenStorageFactory = tokenStorageFactory
     }
     
@@ -45,33 +49,60 @@ final class TokenRepository: TokenRepositoryProtocol {
             tokenStorage = tokenStorageFactory.make(with: responseDTO.userID)
         }
         
-        try store(token: accessToken, forKey: "SOMEKEY")
-        try store(token: refreshToken, forKey: "SOMEKEY")
+        try store(token: accessToken, forKey: StorageKeys.accessToken)
+        try store(token: refreshToken, forKey: StorageKeys.refreshToken)
+        
+        storePreferences(
+            data: responseDTO.userID,
+            forKey: StorageKeys.currentUserID
+        )
+        storePreferences(
+            data: accessToken.createdAt,
+            forKey: StorageKeys.accessTokenCreatedAt
+        )
+        storePreferences(
+            data: refreshToken.createdAt,
+            forKey: StorageKeys.refreshTokenCreatedAt
+        )
+        
         return accessToken
     }
     
-    func currentToken() throws -> Token? {
-        try tokenStorage?.loadValue(forKey: "SOMEKEY")
+    func currentToken(forKey key: StorageKeys) throws -> Token? {
+        guard let tokenStorage else { throw RepoError.storageNotConfigured }
+        return try tokenStorage.loadValue(forKey: key.rawValue)
     }
     
-    func clearToken() throws {
-        try tokenStorage?.removeObject(forKey: "SOMEKEY")
+    func clearAccessToken() throws {
+        guard let tokenStorage else { throw RepoError.storageNotConfigured }
+        try tokenStorage.removeObject(forKey: StorageKeys.accessToken.rawValue)
+        preferences.removeObject(forKey: StorageKeys.accessTokenCreatedAt.rawValue)
+    }
+    
+    func clearRefreshToken() throws {
+        guard let tokenStorage else { throw RepoError.storageNotConfigured }
+        try tokenStorage.removeObject(forKey: StorageKeys.refreshToken.rawValue)
+        preferences.removeObject(forKey: StorageKeys.refreshTokenCreatedAt.rawValue)
     }
 }
 
 private extension TokenRepository {
-    func store(token: Token, forKey key: String) throws {
-        try tokenStorage?.set(token, forKey: key)
+    func store(token: Token, forKey key: StorageKeys) throws {
+        try tokenStorage?.set(token, forKey: key.rawValue)
     }
-
+    
+    func storePreferences(data: Any, forKey key: StorageKeys) {
+        preferences.set(data, forKey: key.rawValue)
+    }
+    
     func validate(_ token: Token) throws(RepoError) {
-        guard !token.token.isEmpty else {
+        if token.type == .unknown {
+            logger?.notice("Unknown token type")
+        }
+        
+        if token.token.isEmpty {
             logger?.notice("Empty token")
             throw .emptyToken
-        }
-        guard token.type != .unknown else {
-            logger?.notice("Unknown token type")
-            return
         }
     }
 }
@@ -79,5 +110,6 @@ private extension TokenRepository {
 extension TokenRepository {
     enum RepoError: Error {
         case emptyToken
+        case storageNotConfigured
     }
 }
