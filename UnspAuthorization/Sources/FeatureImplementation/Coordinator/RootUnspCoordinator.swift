@@ -15,6 +15,7 @@ protocol UnspCoordinatorProtocol {
 final class RootUnspCoordinator: UnspCoordinatorProtocol {
     
     private let navigation: UINavigationController
+    private let keychainStorageFactory = KeychainStorageFactory()
     
     init(navigation: UINavigationController) {
         self.navigation = navigation
@@ -25,7 +26,7 @@ final class RootUnspCoordinator: UnspCoordinatorProtocol {
     }
 }
 
-extension RootUnspCoordinator {
+private extension RootUnspCoordinator {
     func showAuthEntryScreen() {
         let controller = AuthEntryViewController(output: self)
         navigation.pushViewController(controller, animated: true)
@@ -35,20 +36,31 @@ extension RootUnspCoordinator {
         let authorizationService = AuthorizationService()
         let tokenRepository = TokenRepository(
             authorizationService: authorizationService,
-            tokenStorageFactory: KeychainStorageFactory()
+            tokenStorageFactory: keychainStorageFactory
         )
         let viewModel = AuthorizationViewModel(
             authConfig: .defaultConfig,
             tokenRepository: tokenRepository
         )
         
-        let controller = AuthorizationViewController(viewModel: viewModel)
-        navigation.pushViewController(controller, animated: true)
+        let controller = AuthorizationViewController(
+            viewModel: viewModel,
+            output: self
+        )
+        navigation.present(controller, animated: true)
     }
 }
 
 extension RootUnspCoordinator: AuthEntryViewControllerOutput {
     func authEntryDidRequestStartAuth() {
         showAuthorizationScreen()
+    }
+}
+
+extension RootUnspCoordinator: AuthorizationViewControllerOutput {
+    func didAuthorize() {
+        navigation.dismiss(animated: true)
+        
+        ///send flow completion
     }
 }

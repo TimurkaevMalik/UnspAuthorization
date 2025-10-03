@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Service API
-protocol AuthorizationServiceProtocol {
+protocol AuthorizationServiceProtocol: Sendable {
     func fetchToken(with code: String) async  throws -> AuthResponseDTO
 }
 
@@ -19,7 +19,6 @@ final class AuthorizationService: AuthorizationServiceProtocol {
     /// Сейчас используем имитацию только для локального прототипирования.
     private let myBackendImitation = BackendImitatingService()
     
-#warning("Make retry functionality based on 'response.statusCode' (e.g., 500/502/503 with backoff)")
     func fetchToken(with code: String) async throws(AuthError) -> AuthResponseDTO {
         
         do {

@@ -43,24 +43,25 @@ final class URLBuilder {
             case .host(let host):
                 urlComponents.host = host
             case .path(let path):
-                urlComponents.path += "/" + path
+                if urlComponents.path.isEmpty {
+                    urlComponents.path = "/" + path
+                } else {
+                    urlComponents.path += "/" + path
+                }
+                
             case .queryItem(let name, let value):
-                urlComponents.queryItems?.append(URLQueryItem(name: name, value: value))
+                var items = urlComponents.queryItems ?? []
+                items.append(URLQueryItem(name: name, value: value))
+                urlComponents.queryItems = items
             }
-            
-            #warning("протестить")
-//        case .path(let path):
-//            if urlComponents.path.isEmpty { urlComponents.path = "/" + path }
-//            else { urlComponents.path += "/" + path }
-//
-//        case .queryItem(let name, let value):
-//            var items = urlComponents.queryItems ?? []
-//            items.append(URLQueryItem(name: name, value: value))
-//            urlComponents.queryItems = items
-
         }
         
         return urlComponents.url
+    }
+    
+    func reset() {
+        urlComponents.queryItems?.removeAll()
+        urlComponents.path = ""
     }
     
     private enum URLComponent {

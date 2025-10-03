@@ -9,14 +9,10 @@ import Foundation
 import SnapKit
 import WebKit
 
-enum AuthenticationError: Error {
-    case missingCode
-}
-
 @MainActor
 protocol AuthorizationViewOutput: AnyObject {
     func didReceiveAuthorizationCode(_ code: String)
-    func didFailAuthorization(with error: AuthenticationError)
+    func didFailAuthorization(with error: AuthError)
 }
 
 final class AuthorizationView: UIView {
@@ -24,18 +20,20 @@ final class AuthorizationView: UIView {
     private weak var output: AuthorizationViewOutput?
     
     private lazy var webView = {
-        let uiView = WKWebView()
+        let config = WKWebViewConfiguration()
+        config.websiteDataStore = .nonPersistent()
+        let uiView = WKWebView(frame: .zero, configuration: config)
+        
         uiView.navigationDelegate = self
         uiView.translatesAutoresizingMaskIntoConstraints = false
+        
         return uiView
     }()
     
-    let urlRequest: URLRequest
-    
-    init(request: URLRequest, output: AuthorizationViewOutput?) {
-        urlRequest = request
+    init(output: AuthorizationViewOutput?) {
         self.output = output
         super.init(frame: .zero)
+        backgroundColor = Palette.uiColor(.whitePrimary)
     }
     
     @available(*, unavailable)
@@ -43,7 +41,7 @@ final class AuthorizationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadAuthorizationPage() {
+    func loadWebPage(with urlRequest: URLRequest) {
         webView.load(urlRequest)
     }
     
@@ -63,28 +61,26 @@ extension AuthorizationView: WKNavigationDelegate {
         decisionHandler: @escaping @MainActor (WKNavigationActionPolicy
         ) -> Void) {
         
-        if let url = navigationAction.request.url {
-            if url.absoluteString.hasPrefix(AuthConstants.redirectURI) {
-                handleRedirect(url: url)
-                decisionHandler(.cancel)
-                return
-            }
+        if let url = navigationAction.request.url,
+           let code = code(from: url) {
+            
+            webView.stopLoading()
+            output?.didReceiveAuthorizationCode(code)
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
         }
-        
-        decisionHandler(.allow)
     }
 }
 
 private extension AuthorizationView {
-    func handleRedirect(url: URL) {
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              let code = components.queryItems?.first(where: { $0.name == "code" })?.value
-        else {
-            output?.didFailAuthorization(with: .missingCode)
-            return
+    func code(from url: URL) -> String? {
+        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+           let code = components.queryItems?.first(where: { $0.name == "code" })?.value {
+            
+            return code
         }
         
-        webView.stopLoading()
-        output?.didReceiveAuthorizationCode(code)
+        return nil
     }
 }

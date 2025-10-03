@@ -9,9 +9,10 @@ import Foundation
 import LoggingKit
 import KeychainStorageKit
 
+@MainActor
 protocol TokenRepositoryProtocol {
     func fetchToken(with code: String) async throws -> Token
-    func currentToken(forKey key: StorageKeys) throws -> Token?
+    func currentToken(forKey key: StorageKeys) throws -> String?
     func clearAccessToken() throws
     func clearRefreshToken() throws
 }
@@ -35,25 +36,30 @@ final class TokenRepository: TokenRepositoryProtocol {
         self.authorizationService = authorizationService
         self.preferences = preferences
         self.tokenStorageFactory = tokenStorageFactory
+        
+        if let userID = preferences.retrieve(String.self, forKey: StorageKeys.currentUserID.rawValue) {
+            
+            setupStorageWith(userID: userID)
+        }
     }
     
     func fetchToken(with code: String) async throws -> Token {
-        let responseDTO = try await authorizationService.fetchToken(with: code)
-        let accessToken = Token(asAccessToken: responseDTO)
-        let refreshToken = Token(asRefreshToken: responseDTO)
+        let response = try await authorizationService.fetchToken(with: code)
+        let accessToken = Token(asAccessToken: response)
+        let refreshToken = Token(asRefreshToken: response)
         
         try validate(accessToken)
         try validate(refreshToken)
         
         if tokenStorage == nil {
-            tokenStorage = tokenStorageFactory.make(with: responseDTO.userID)
+            setupStorageWith(userID: "\(response.userID)")
         }
         
         try store(token: accessToken, forKey: StorageKeys.accessToken)
         try store(token: refreshToken, forKey: StorageKeys.refreshToken)
         
         storePreferences(
-            data: responseDTO.userID,
+            data: response.userID,
             forKey: StorageKeys.currentUserID
         )
         storePreferences(
@@ -68,13 +74,14 @@ final class TokenRepository: TokenRepositoryProtocol {
         return accessToken
     }
     
-    func currentToken(forKey key: StorageKeys) throws -> Token? {
+    func currentToken(forKey key: StorageKeys) throws -> String? {
         guard let tokenStorage else { throw RepoError.storageNotConfigured }
-        return try tokenStorage.loadValue(forKey: key.rawValue)
+        return try tokenStorage.string(forKey: key.rawValue)
     }
     
     func clearAccessToken() throws {
         guard let tokenStorage else { throw RepoError.storageNotConfigured }
+        
         try tokenStorage.removeObject(forKey: StorageKeys.accessToken.rawValue)
         preferences.removeObject(forKey: StorageKeys.accessTokenCreatedAt.rawValue)
     }
@@ -88,11 +95,15 @@ final class TokenRepository: TokenRepositoryProtocol {
 
 private extension TokenRepository {
     func store(token: Token, forKey key: StorageKeys) throws {
-        try tokenStorage?.set(token, forKey: key.rawValue)
+        try tokenStorage?.set(string: token.token, forKey: key.rawValue)
     }
     
     func storePreferences(data: Any, forKey key: StorageKeys) {
         preferences.set(data, forKey: key.rawValue)
+    }
+    
+    func setupStorageWith(userID: String) {
+        tokenStorage = tokenStorageFactory.make(with: "\(userID)")
     }
     
     func validate(_ token: Token) throws(RepoError) {

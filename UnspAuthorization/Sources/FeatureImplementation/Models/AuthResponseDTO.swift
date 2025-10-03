@@ -12,7 +12,7 @@ struct AuthResponseDTO: Decodable {
     let accessToken: String
     let refreshToken: String
     let type: String
-    let userID: String
+    let userID: Int
     let createdAt: Int
     
     private enum CodingKeys: String, CodingKey {

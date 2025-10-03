@@ -7,13 +7,16 @@
 
 import Foundation
 
+@MainActor
 protocol AuthorizationViewModelProtocol {
     var authorizationUrlRequest: URLRequest? { get }
-    func fetchToken(with code: String)
+    func fetchToken(with code: String) async throws
+    func currentToken(forKey key: StorageKeys) throws -> String?
+    func clearAccessToken() throws
+    func clearRefreshToken() throws
 }
 
 final class AuthorizationViewModel: AuthorizationViewModelProtocol {
-    
     
     private let authConfig: AuthenticationConfig
     private let tokenRepository: TokenRepositoryProtocol
@@ -30,10 +33,20 @@ final class AuthorizationViewModel: AuthorizationViewModelProtocol {
         self.tokenRepository = tokenRepository
     }
     
-    func fetchToken(with code: String) {
-        Task {
-            try await tokenRepository.fetchToken(with: code)
-        }
+    func fetchToken(with code: String) async throws {
+            _ = try await tokenRepository.fetchToken(with: code)
+    }
+    
+    func currentToken(forKey key: StorageKeys) throws -> String? {
+        try tokenRepository.currentToken(forKey: key)
+    }
+    
+    func clearAccessToken() throws {
+        try tokenRepository.clearAccessToken()
+    }
+    
+    func clearRefreshToken() throws {
+        try tokenRepository.clearRefreshToken()
     }
 }
 

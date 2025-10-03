@@ -21,7 +21,7 @@ import Foundation
 /// • `client_secret` легко извлекается из IPA/памяти — его украдут и злоупотребят приложением.
 /// • Unsplash ожидает, что обмен code→token делает доверенная сторона (сервер), а не iOS-клиент.
 
-final class BackendImitatingService {
+final class BackendImitatingService: Sendable {
     private let accessKey = "Ix8DGsN3icXmar5IMI1Hwy0G2L8MotFf93HczcjVPOk"
     private let secretKey = "gES-oqwCmHGffOoObk03kstACihBSBn9jKpo77N7wTg"
     

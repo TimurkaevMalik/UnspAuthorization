@@ -15,7 +15,10 @@ protocol PreferencesProtocol {
 
 extension UserDefaults: PreferencesProtocol {
     
-    func retrieve<T: Codable>(_ type: T.Type, forKey key: String) -> T? {
+    func retrieve<T: Codable>(
+        _ type: T.Type = T.self,
+        forKey key: String
+    ) -> T? {
         
         switch T.self {
         case is String.Type:  return string(forKey: key) as? T

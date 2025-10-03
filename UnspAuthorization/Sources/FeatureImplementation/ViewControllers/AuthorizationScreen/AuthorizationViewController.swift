@@ -7,21 +7,33 @@
 
 import UIKit
 
+@MainActor
+protocol AuthorizationViewControllerOutput: AnyObject {
+    func didAuthorize()
+}
+
 final class AuthorizationViewController: UIViewController {
     
     private let vm: AuthorizationViewModelProtocol
+    private weak var output: AuthorizationViewControllerOutput?
     
-    private lazy var rootView: AuthorizationView? = {
-        if let request = vm.authorizationUrlRequest {
-            let uiView = AuthorizationView(request: request, output: self)
-            return uiView
-        } else {
-            return nil
-        }
+    private lazy var rootView = AuthorizationView(output: self)
+    
+    private lazy var alertController = {
+        let alert = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .alert
+        )
+        return alert
     }()
     
-    init(viewModel: AuthorizationViewModelProtocol) {
+    init(
+        viewModel: AuthorizationViewModelProtocol,
+        output: AuthorizationViewControllerOutput? = nil
+    ) {
         self.vm = viewModel
+        self.output = output
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,32 +43,48 @@ final class AuthorizationViewController: UIViewController {
     }
     
     override func loadView() {
-        if let rootView {
-            view = rootView
-        } else {
-            super.loadView()
-        }
+        view = rootView
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
-        view.backgroundColor = Palette.uiColor(.whitePrimary)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        rootView?.setupUI()
-        rootView?.loadAuthorizationPage()
+        rootView.setupUI()
+        if let request = vm.authorizationUrlRequest {
+            rootView.loadWebPage(with: request)
+        } else {
+            showAlert(message: "Failed to load web page")
+        }
     }
 }
 
 extension AuthorizationViewController: AuthorizationViewOutput {
     func didReceiveAuthorizationCode(_ code: String) {
-        vm.fetchToken(with: code)
+        Task {
+            do {
+                try await vm.fetchToken(with: code)
+                
+                if let token = try vm.currentToken(forKey: .accessToken) {
+                    print(token)
+                    output?.didAuthorize()
+                }
+            } catch {
+                showAlert(message: "Failed to authorize")
+            }
+        }
     }
     
-    func didFailAuthorization(with error: AuthenticationError) {
-        dismiss(animated: true)
+    func didFailAuthorization(with error: AuthError) {
+        showAlert(message: "Failed to authorize")
+    }
+}
+
+private extension AuthorizationViewController {
+    private func showAlert(message: String) {
+        alertController.message = message
+        alertController.title = "Error"
+        
+        let action = UIAlertAction(title: "Ok", style: .default)
+        alertController.addAction(action)
+        present(alertController, animated: true)
     }
 }
