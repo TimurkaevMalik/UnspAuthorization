@@ -11,7 +11,7 @@ public enum Targets {
     public static let appTarget = Target.target(
         name: ProjectConstants.appName,
         destinations: .iOS,
-        product: .app,
+        product: .framework,
         bundleId: ProjectConstants.bundleID,
         infoPlist: .extendingDefault(
             with: [

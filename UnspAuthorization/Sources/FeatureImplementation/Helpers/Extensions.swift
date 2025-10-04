@@ -7,6 +7,7 @@
 
 import UIKit
 
+#warning("Move colors to another model")
 enum Grid {
     static var xxs: CGFloat { 4 }
     static var xs:  CGFloat { 8 }
