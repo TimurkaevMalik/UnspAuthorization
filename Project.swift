@@ -1,10 +1,8 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let appName = ProjectConstants.appName
-
 let project = Project(
-    name: appName,
+    name: ProjectConstants.appName,
     settings: .settings(base: BuildFlags.base),
     targets: [
         Targets.appTarget

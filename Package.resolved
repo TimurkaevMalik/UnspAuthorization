@@ -1,0 +1,51 @@
+{
+  "originHash" : "d11d34d46f1d1949c3edf3fa9988c3317171ea3bf6b8a70b675a61645542f4a5",
+  "pins" : [
+    {
+      "identity" : "fontskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TimurkaevMalik/FontsKit.git",
+      "state" : {
+        "revision" : "89bda4fa73e5700ea89eba366df08fba1a4b70c6",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "keychainstoragekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
+      "state" : {
+        "revision" : "87054d491ab887317e10c088c46fac882e2694c9",
+        "version" : "1.1.3"
+      }
+    },
+    {
+      "identity" : "loggingkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TimurkaevMalik/LoggingKit.git",
+      "state" : {
+        "revision" : "0556c04f2bb0a62bd521a06288656b0f013f1825",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
+        "version" : "5.7.1"
+      }
+    },
+    {
+      "identity" : "valet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/square/Valet.git",
+      "state" : {
+        "revision" : "05c9e514fbd352a6866877ca31326b4e0b7d6d01",
+        "version" : "5.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}

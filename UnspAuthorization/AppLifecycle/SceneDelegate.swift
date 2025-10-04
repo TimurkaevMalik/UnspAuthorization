@@ -22,7 +22,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigation = UINavigationController()
         let coordinator = RootUnspCoordinator(navigation: navigation)
-        #warning("check lifecycle")
         rootCoordinator = coordinator
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navigation
