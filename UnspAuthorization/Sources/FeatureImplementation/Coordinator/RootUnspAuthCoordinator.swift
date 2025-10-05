@@ -9,7 +9,6 @@ import UIKit
 import CoreKit
 
 @MainActor
-
 final class RootUnspAuthCoordinator: Coordinator {
     var finishDelegate: CoordinatorFinishDelegate?
     
