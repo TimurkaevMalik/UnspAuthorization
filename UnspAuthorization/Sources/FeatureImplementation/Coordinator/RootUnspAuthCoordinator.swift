@@ -9,17 +9,17 @@ import UIKit
 import CoreKit
 
 @MainActor
-final class RootUnspAuthCoordinator: Coordinator {
-    var finishDelegate: CoordinatorFinishDelegate?
+public final class RootUnspAuthCoordinator: Coordinator {
+    public var finishDelegate: CoordinatorFinishDelegate?
     
     private let navigation: UINavigationController
     private let keychainStorageFactory = KeychainStorageFactory()
     
-    init(navigation: UINavigationController) {
+    public init(navigation: UINavigationController) {
         self.navigation = navigation
     }
     
-    func start() {
+    public func start() {
         showAuthEntryScreen()
     }
 }
