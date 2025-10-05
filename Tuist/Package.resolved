@@ -1,13 +1,13 @@
 {
-  "originHash" : "39f92da406d05ca1a83a20bd9a2498348d7cd654fa10030748e4a7e1aea5bd45",
+  "originHash" : "1b19a6b3f1201308364ea02f3e269ac3342c7ffb67eb1eee3c918dd6c3796011",
   "pins" : [
     {
-      "identity" : "fontskit",
+      "identity" : "corekit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/TimurkaevMalik/FontsKit.git",
+      "location" : "https://github.com/TimurkaevMalik/CoreKit.git",
       "state" : {
-        "revision" : "89bda4fa73e5700ea89eba366df08fba1a4b70c6",
-        "version" : "1.1.0"
+        "revision" : "514595e8da92b66af04ecb783a4940d8ca6b8093",
+        "version" : "1.0.1"
       }
     },
     {

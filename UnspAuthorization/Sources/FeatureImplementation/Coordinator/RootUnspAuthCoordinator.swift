@@ -1,18 +1,17 @@
 //
-//  RootUnspCoordinator.swift
+//  RootUnspAuthCoordinator.swift
 //  UnspAuthorization
 //
 //  Created by Malik Timurkaev on 01.10.2025.
 //
 
 import UIKit
+import CoreKit
 
 @MainActor
-protocol UnspCoordinatorProtocol {
-    func start()
-}
 
-final class RootUnspCoordinator: UnspCoordinatorProtocol {
+final class RootUnspAuthCoordinator: Coordinator {
+    var finishDelegate: CoordinatorFinishDelegate?
     
     private let navigation: UINavigationController
     private let keychainStorageFactory = KeychainStorageFactory()
@@ -26,7 +25,7 @@ final class RootUnspCoordinator: UnspCoordinatorProtocol {
     }
 }
 
-private extension RootUnspCoordinator {
+private extension RootUnspAuthCoordinator {
     func showAuthEntryScreen() {
         let controller = AuthEntryViewController(output: self)
         navigation.pushViewController(controller, animated: true)
@@ -51,16 +50,15 @@ private extension RootUnspCoordinator {
     }
 }
 
-extension RootUnspCoordinator: AuthEntryViewControllerOutput {
+extension RootUnspAuthCoordinator: AuthEntryViewControllerOutput {
     func authEntryDidRequestStartAuth() {
         showAuthorizationScreen()
     }
 }
 
-extension RootUnspCoordinator: AuthorizationViewControllerOutput {
+extension RootUnspAuthCoordinator: AuthorizationViewControllerOutput {
     func didAuthorize() {
         navigation.dismiss(animated: true)
-        
-        ///send flow completion
+        finishDelegate?.didFinishChild(self)
     }
 }

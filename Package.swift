@@ -18,7 +18,7 @@ let package = Package(
     dependencies: [
         .make(from: SPMDependency.valet),
         .make(from: SPMDependency.snapKit),
-        .make(from: SPMDependency.fontsKit),
+        .make(from: SPMDependency.coreKit),
         .make(from: SPMDependency.loggingKit),
         .make(from: SPMDependency.keychainStorageKit)
     ],
@@ -28,7 +28,7 @@ let package = Package(
             dependencies: [
                 .product(SPMDependency.valet.name),
                 .product(SPMDependency.snapKit.name),
-                .product(SPMDependency.fontsKit.name),
+                .product(SPMDependency.coreKit.name),
                 .product(SPMDependency.loggingKit.name),
                 .product(SPMDependency.keychainStorageKit.name)
             ],
@@ -47,6 +47,13 @@ fileprivate enum SPMDependency {
         requirement: .version(.init(5, 0, 0))
     )
     
+    static let snapKit = PackageModel(
+        name: "SnapKit",
+        url: "https://github.com/SnapKit/SnapKit.git",
+        requirement: .version(.init(5, 7, 0))
+    )
+    
+    // MARK: - My own libraries
     static let loggingKit = PackageModel(
         name: "LoggingKit",
         url: "https://github.com/TimurkaevMalik/LoggingKit.git",
@@ -58,17 +65,11 @@ fileprivate enum SPMDependency {
         url: "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
         requirement: .version(.init(1, 1, 3))
     )
-    
-    static let fontsKit = PackageModel(
-        name: "FontsKit",
-        url: "https://github.com/TimurkaevMalik/FontsKit.git",
-        requirement: .version(.init(1, 1, 0))
-    )
-    
-    static let snapKit = PackageModel(
-        name: "SnapKit",
-        url: "https://github.com/SnapKit/SnapKit.git",
-        requirement: .version(.init(5, 7, 0))
+        
+    static let coreKit = PackageModel(
+        name: "CoreKit",
+        url: "https://github.com/TimurkaevMalik/CoreKit.git",
+        requirement: .version(.init(1, 0, 1))
     )
 }
 

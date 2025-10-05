@@ -13,6 +13,13 @@ public enum SPMDependency {
         url: "https://github.com/square/Valet.git",
         requirement: .version(.init(5, 0, 0)))
     
+    static let snapKit = PackageModel(
+        name: "SnapKit",
+        url: "https://github.com/SnapKit/SnapKit.git",
+        requirement: .version(.init(5, 7, 0))
+    )
+
+    // MARK: - My own libraries
     static let loggingKit = PackageModel(
         name: "LoggingKit",
         url: "https://github.com/TimurkaevMalik/LoggingKit.git",
@@ -24,17 +31,11 @@ public enum SPMDependency {
         url: "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
         requirement: .version(.init(1, 1, 3))
     )
-    
-    static let fontsKit = PackageModel(
-        name: "FontsKit",
-        url: "https://github.com/TimurkaevMalik/FontsKit.git",
-        requirement: .version(.init(1, 1, 0))
-    )
-    
-    static let snapKit = PackageModel(
-        name: "SnapKit",
-        url: "https://github.com/SnapKit/SnapKit.git",
-        requirement: .version(.init(5, 7, 0))
+            
+    static let coreKit = PackageModel(
+        name: "CoreKit",
+        url: "https://github.com/TimurkaevMalik/CoreKit.git",
+        requirement: .version(.init(1, 0, 1))
     )
 }
 

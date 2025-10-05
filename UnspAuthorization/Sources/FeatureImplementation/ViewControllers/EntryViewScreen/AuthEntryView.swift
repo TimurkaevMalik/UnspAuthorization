@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import FontsKit
 import SnapKit
+import CoreKit
 
 @MainActor
 protocol AuthEntryViewOutput: AnyObject {
@@ -21,7 +21,7 @@ final class AuthEntryView: UIView {
     private lazy var titleLabel = {
         let uiView = UILabel()
         uiView.textAlignment = .center
-        uiView.textColor = Palette.uiColor(.blackPrimary)
+        uiView.textColor = Palette.Asset.blackPrimary.uiColor
         uiView.font = FontSystem.Title.xl
         uiView.text = "Unsplash"
         uiView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,8 +33,8 @@ final class AuthEntryView: UIView {
         var config = UIButton.Configuration.filled()
         
         config.title = "Авторизоваться"
-        config.baseBackgroundColor = Palette.uiColor(.blackPrimary)
-        config.baseForegroundColor = Palette.uiColor(.whitePrimary)
+        config.baseBackgroundColor = Palette.Asset.blackPrimary.uiColor
+        config.baseForegroundColor = Palette.Asset.whitePrimary.uiColor
         config.cornerStyle = .small
         config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0)
         
@@ -58,7 +58,7 @@ final class AuthEntryView: UIView {
 
 private extension AuthEntryView {
     func setupUI() {
-        backgroundColor = Palette.uiColor(.whitePrimary)
+        backgroundColor = Palette.Asset.whitePrimary.uiColor
         addSubview(titleLabel)
         addSubview(authButton)
         

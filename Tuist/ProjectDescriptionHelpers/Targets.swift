@@ -23,9 +23,9 @@ public enum Targets {
         dependencies: [
             .external(name: SPMDependency.valet.name),
             .external(name: SPMDependency.snapKit.name),
-            .external(name: SPMDependency.fontsKit.name),
+            .external(name: SPMDependency.coreKit.name),
             .external(name: SPMDependency.loggingKit.name),
-            .external(name: SPMDependency.keychainStorageKit.name),
+            .external(name: SPMDependency.keychainStorageKit.name)
         ],
         settings: .settings(base: BuildFlags.base),
     )

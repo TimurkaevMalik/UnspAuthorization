@@ -7,11 +7,12 @@
 
 
 import UIKit
+import CoreKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var rootCoordinator: UnspCoordinatorProtocol?
+    var rootCoordinator: Coordinator?
     
     func scene(
         _ scene: UIScene,
@@ -21,7 +22,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         
         let navigation = UINavigationController()
-        let coordinator = RootUnspCoordinator(navigation: navigation)
+        let coordinator = RootUnspAuthCoordinator(navigation: navigation)
         rootCoordinator = coordinator
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navigation

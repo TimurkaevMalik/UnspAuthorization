@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SnapKit
+import CoreKit
 import WebKit
 
 @MainActor
@@ -33,7 +33,7 @@ final class AuthorizationView: UIView {
     init(output: AuthorizationViewOutput?) {
         self.output = output
         super.init(frame: .zero)
-        backgroundColor = Palette.uiColor(.whitePrimary)
+        backgroundColor = Palette.Asset.whitePrimary.uiColor
     }
     
     @available(*, unavailable)
