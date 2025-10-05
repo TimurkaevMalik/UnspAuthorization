@@ -10,7 +10,7 @@ import CoreKit
 
 @MainActor
 public final class RootUnspAuthCoordinator: Coordinator {
-    public var finishDelegate: CoordinatorFinishDelegate?
+    public weak var finishDelegate: CoordinatorFinishDelegate?
     
     private let navigation: UINavigationController
     private let keychainStorageFactory = KeychainStorageFactory()
