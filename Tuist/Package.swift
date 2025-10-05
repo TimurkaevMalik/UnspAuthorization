@@ -42,7 +42,7 @@ fileprivate enum SPMDependency {
         requirement: .version(.init(5, 7, 0))
     )
     
-    // MARK: - My own libraries
+    // MARK: - My libraries
     static let loggingKit = PackageModel(
         name: "LoggingKit",
         url: "https://github.com/TimurkaevMalik/LoggingKit.git",
@@ -58,7 +58,7 @@ fileprivate enum SPMDependency {
     static let coreKit = PackageModel(
         name: "CoreKit",
         url: "https://github.com/TimurkaevMalik/CoreKit.git",
-        requirement: .version(.init(1, 0, 1))
+        requirement: .version(.init(2, 0, 0))
     )
 }
 
