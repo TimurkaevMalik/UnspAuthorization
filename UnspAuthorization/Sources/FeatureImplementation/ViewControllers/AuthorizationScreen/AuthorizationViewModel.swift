@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import HelpersSharedUnsp
 
 @MainActor
 protocol AuthorizationViewModelProtocol {

@@ -1,5 +1,5 @@
 {
-  "originHash" : "5168175b894c2fbb8359203f947ec78a97abb9d8a1d039b84c74dc47f447ffec",
+  "originHash" : "de08cd40f2255cb30530d877fed8a7846552867750833e2e764b21a9d62a192e",
   "pins" : [
     {
       "identity" : "corekit",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "b4ba182a11ec9176155a55ed7426aa78e5a0e77b",
         "version" : "2.3.0"
+      }
+    },
+    {
+      "identity" : "helperssharedunsp",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TimurkaevMalik/HelpersSharedUnsp.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b88f85d3c3306c2f45e7ee5c294391f0a4507b5c"
       }
     },
     {
@@ -34,7 +43,7 @@
       "location" : "https://github.com/TimurkaevMalik/NetworkKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "76d9282280b97b5c2e8eb1da41aa963ae1c051b7"
+        "revision" : "c4dd8f35c1c8972726da67bfe099f43c7fcc2a70"
       }
     },
     {

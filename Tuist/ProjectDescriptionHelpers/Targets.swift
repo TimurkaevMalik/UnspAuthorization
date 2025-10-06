@@ -26,6 +26,7 @@ public enum Targets {
             .external(name: SPMDependency.coreKit.name),
             .external(name: SPMDependency.loggingKit.name),
             .external(name: SPMDependency.networkKit.name),
+            .external(name: SPMDependency.helpersSharedUnsp.name),
             .external(name: SPMDependency.keychainStorageKit.name)
         ],
         settings: .settings(base: BuildFlags.base),
