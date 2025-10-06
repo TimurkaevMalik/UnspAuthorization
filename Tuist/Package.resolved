@@ -1,5 +1,5 @@
 {
-  "originHash" : "63d4dd4c034a8f98b11161c6e4a7a7204a0fde6c671c360731f92d5ab1bad72f",
+  "originHash" : "5168175b894c2fbb8359203f947ec78a97abb9d8a1d039b84c74dc47f447ffec",
   "pins" : [
     {
       "identity" : "corekit",
@@ -24,8 +24,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TimurkaevMalik/LoggingKit.git",
       "state" : {
-        "revision" : "4faa18b5d160912738c0b382719b4b7832a16bf7",
-        "version" : "1.1.0"
+        "revision" : "0556c04f2bb0a62bd521a06288656b0f013f1825",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "networkkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TimurkaevMalik/NetworkKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "76d9282280b97b5c2e8eb1da41aa963ae1c051b7"
       }
     },
     {

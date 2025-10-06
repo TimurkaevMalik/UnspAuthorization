@@ -7,14 +7,12 @@
 
 import Foundation
 
-// MARK: - Domain Error
 enum AuthError: Error, Sendable {
     case invalidURL
     case httpStatus(Int, Data?)
     case decodingFailed(underlying: Error)
     /// Сетевая ошибка уровня URLSession.
     case transport(underlying: Error)
-    case missingCode
 }
 
 extension AuthError: LocalizedError {
@@ -28,8 +26,6 @@ extension AuthError: LocalizedError {
             return "Failed to decode token response: \(e.localizedDescription)"
         case .transport(let e):
             return "Network error: \(e.localizedDescription)"
-        case .missingCode:
-            return "Received response with no code"
         }
     }
 }

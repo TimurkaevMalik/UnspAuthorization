@@ -8,6 +8,7 @@
 import Foundation
 import LoggingKit
 import KeychainStorageKit
+import NetworkKit
 
 @MainActor
 protocol TokenRepositoryProtocol {

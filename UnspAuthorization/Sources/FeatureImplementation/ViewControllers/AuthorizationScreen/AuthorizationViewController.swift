@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NetworkKit
 
 @MainActor
 protocol AuthorizationViewControllerOutput: AnyObject {

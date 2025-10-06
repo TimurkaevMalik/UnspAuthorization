@@ -7,6 +7,7 @@
 
 import Foundation
 
+#warning("Move to CoreKit")
 protocol PreferencesProtocol {
     func set(_ value: Any?, forKey key: String)
     func retrieve<T: Codable>(_ type: T.Type, forKey key: String) -> T?

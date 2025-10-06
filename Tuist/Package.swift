@@ -11,6 +11,7 @@ let packageSettings = PackageSettings(
         SPMDependency.snapKit.name: .framework,
         SPMDependency.coreKit.name: .framework,
         SPMDependency.loggingKit.name: .framework,
+        SPMDependency.networkKit.name: .framework,
         SPMDependency.keychainStorageKit.name: .framework
     ]
 )
@@ -24,6 +25,7 @@ let package = Package(
         .make(from: SPMDependency.snapKit),
         .make(from: SPMDependency.coreKit),
         .make(from: SPMDependency.loggingKit),
+        .make(from: SPMDependency.networkKit),
         .make(from: SPMDependency.keychainStorageKit)
     ]
 )
@@ -59,6 +61,12 @@ fileprivate enum SPMDependency {
         name: "CoreKit",
         url: "https://github.com/TimurkaevMalik/CoreKit.git",
         requirement: .version(.init(2, 0, 0))
+    )
+    
+    static let networkKit = PackageModel(
+        name: "NetworkKit",
+        url: "https://github.com/TimurkaevMalik/NetworkKit.git",
+        requirement: .branch("main")
     )
 }
 

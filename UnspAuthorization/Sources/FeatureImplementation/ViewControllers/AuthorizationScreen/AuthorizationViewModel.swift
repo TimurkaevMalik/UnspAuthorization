@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 @MainActor
 protocol AuthorizationViewModelProtocol {

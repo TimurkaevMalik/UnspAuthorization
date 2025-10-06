@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 struct AuthenticationConfig {
     let clientId: String

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 // MARK: - Backend imitation (for LOCAL prototyping only)
 
