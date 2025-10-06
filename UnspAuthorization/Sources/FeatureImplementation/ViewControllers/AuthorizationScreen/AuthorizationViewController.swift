@@ -64,7 +64,7 @@ extension AuthorizationViewController: AuthorizationViewOutput {
                 try await vm.fetchToken(with: code)
                 
                 if let token = try vm.currentToken(forKey: .accessToken) {
-                    print(token)
+                    print("AccessToken:", token)
                     output?.didAuthorize()
                 }
             } catch {

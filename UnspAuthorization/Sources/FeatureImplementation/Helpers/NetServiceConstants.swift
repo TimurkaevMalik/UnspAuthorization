@@ -53,11 +53,3 @@ enum AccessScope: String {
     case readUser = "read_user"
     case writeLikes = "write_likes"
 }
-
-enum StorageKeys: String {
-    case accessToken = "auth.access"
-    case refreshToken = "auth.refresh"
-    case currentUserID = "currentUserID"
-    case accessTokenCreatedAt = "refreshTokenCreatedAt"
-    case refreshTokenCreatedAt = "accessTokenCreatedAt"
-}
