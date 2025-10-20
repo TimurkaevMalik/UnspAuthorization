@@ -16,7 +16,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .make(from: SPMDependency.valet),
+//        .make(from: SPMDependency.valet),
         .make(from: SPMDependency.snapKit),
         .make(from: SPMDependency.coreKit),
         .make(from: SPMDependency.loggingKit),
@@ -26,7 +26,7 @@ let package = Package(
         .target(
             name: appName,
             dependencies: [
-                .product(SPMDependency.valet.name),
+//                .product(SPMDependency.valet.name),
                 .product(SPMDependency.snapKit.name),
                 .product(SPMDependency.coreKit.name),
                 .product(SPMDependency.loggingKit.name),
