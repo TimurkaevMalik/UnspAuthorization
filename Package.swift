@@ -20,7 +20,7 @@ let package = Package(
         .make(from: SPMDependency.snapKit),
         .make(from: SPMDependency.coreKit),
         .make(from: SPMDependency.loggingKit),
-        .make(from: SPMDependency.keychainStorageKit)
+//        .make(from: SPMDependency.keychainStorageKit)
     ],
     targets: [
         .target(
@@ -30,7 +30,7 @@ let package = Package(
                 .product(SPMDependency.snapKit.name),
                 .product(SPMDependency.coreKit.name),
                 .product(SPMDependency.loggingKit.name),
-                .product(SPMDependency.keychainStorageKit.name)
+//                .product(SPMDependency.keychainStorageKit.name)
             ],
             path: appName,
             sources: ["Sources"]
