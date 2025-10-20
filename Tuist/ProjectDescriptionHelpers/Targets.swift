@@ -21,7 +21,6 @@ public enum Targets {
         sources: [Source.appSources, Source.appLifecycle],
         resources: [Resource.appResources],
         dependencies: [
-            .external(name: SPMDependency.valet.name),
             .external(name: SPMDependency.snapKit.name),
             .external(name: SPMDependency.coreKit.name),
             .external(name: SPMDependency.loggingKit.name),

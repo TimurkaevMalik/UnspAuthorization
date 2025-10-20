@@ -7,11 +7,11 @@ import struct ProjectDescription.PackageSettings
 
 let packageSettings = PackageSettings(
     productTypes: [
-        SPMDependency.valet.name: .framework,
         SPMDependency.snapKit.name: .framework,
         SPMDependency.coreKit.name: .framework,
         SPMDependency.loggingKit.name: .framework,
         SPMDependency.networkKit.name: .framework,
+        SPMDependency.helpersSharedUnsp.name: .framework,
         SPMDependency.keychainStorageKit.name: .framework
     ]
 )
@@ -21,7 +21,6 @@ let packageSettings = PackageSettings(
 let package = Package(
     name: "UnspAuthorization",
     dependencies: [
-        .make(from: SPMDependency.valet),
         .make(from: SPMDependency.snapKit),
         .make(from: SPMDependency.coreKit),
         .make(from: SPMDependency.loggingKit),
@@ -33,12 +32,6 @@ let package = Package(
 
 /// MARK: - Dependencies
 fileprivate enum SPMDependency {
-    static let valet = PackageModel(
-        name: "Valet",
-        url: "https://github.com/square/Valet.git",
-        requirement: .version(.init(5, 0, 0))
-    )
-    
     static let snapKit = PackageModel(
         name: "SnapKit",
         url: "https://github.com/SnapKit/SnapKit.git",
@@ -61,7 +54,7 @@ fileprivate enum SPMDependency {
     static let coreKit = PackageModel(
         name: "CoreKit",
         url: "https://github.com/TimurkaevMalik/CoreKit.git",
-        requirement: .version(.init(2, 0, 0))
+        requirement: .version(.init(2, 8, 0))
     )
     
     static let networkKit = PackageModel(
