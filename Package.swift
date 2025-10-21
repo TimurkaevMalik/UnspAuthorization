@@ -17,9 +17,9 @@ let package = Package(
     ],
     dependencies: [
 //        .make(from: SPMDependency.valet),
-        .make(from: SPMDependency.snapKit),
-        .make(from: SPMDependency.coreKit),
-        .make(from: SPMDependency.loggingKit),
+//        .make(from: SPMDependency.snapKit),
+//        .make(from: SPMDependency.coreKit),
+//        .make(from: SPMDependency.loggingKit),
 //        .make(from: SPMDependency.keychainStorageKit)
     ],
     targets: [
@@ -27,9 +27,9 @@ let package = Package(
             name: appName,
             dependencies: [
 //                .product(SPMDependency.valet.name),
-                .product(SPMDependency.snapKit.name),
-                .product(SPMDependency.coreKit.name),
-                .product(SPMDependency.loggingKit.name),
+//                .product(SPMDependency.snapKit.name),
+//                .product(SPMDependency.coreKit.name),
+//                .product(SPMDependency.loggingKit.name),
 //                .product(SPMDependency.keychainStorageKit.name)
             ],
             path: appName,
