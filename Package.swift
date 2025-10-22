@@ -3,73 +3,80 @@
 
 import PackageDescription
 
-let appName = "UnspAuthorization"
+let featureName = "UnspAuthorization"
 
 let package = Package(
-    name: appName,
+    name: featureName,
     platforms: [.iOS(.v15)],
     products: [
         .library(
-            name: appName,
+            name: featureName,
             type: .dynamic,
-            targets: [appName]
+            targets: [featureName]
         ),
     ],
     dependencies: [
-//        .make(from: SPMDependency.valet),
-//        .make(from: SPMDependency.snapKit),
+//        .make(from: SPMDependency.snapKitWrapper),
 //        .make(from: SPMDependency.coreKit),
+//        .make(from: SPMDependency.networkKit),
 //        .make(from: SPMDependency.loggingKit),
-//        .make(from: SPMDependency.keychainStorageKit)
+//        .make(from: SPMDependency.keychainStorageKit),
+//        .make(from: SPMDependency.helpersSharedUnsp)
     ],
     targets: [
         .target(
-            name: appName,
+            name: featureName,
             dependencies: [
-//                .product(SPMDependency.valet.name),
-//                .product(SPMDependency.snapKit.name),
+//                .product(SPMDependency.snapKitWrapper.name),
 //                .product(SPMDependency.coreKit.name),
+//                .product(SPMDependency.networkKit.name),
 //                .product(SPMDependency.loggingKit.name),
-//                .product(SPMDependency.keychainStorageKit.name)
+//                .product(SPMDependency.keychainStorageKit.name),
+//                .product(SPMDependency.helpersSharedUnsp.name)
             ],
-            path: appName,
+            path: featureName,
             sources: ["Sources"]
         )
     ]
 )
 
-
 /// MARK: - Dependencies
 fileprivate enum SPMDependency {
-    static let valet = PackageModel(
-        name: "Valet",
-        url: "https://github.com/square/Valet.git",
-        requirement: .version(.init(5, 0, 0))
+    static let snapKitWrapper = PackageModel(
+        name: "SnapKitWrapper",
+        url: "https://github.com/TimurkaevMalik/SnapKitWrapper.git",
+        requirement: .version(.init(5, 8, 0))
     )
-    
-    static let snapKit = PackageModel(
-        name: "SnapKit",
-        url: "https://github.com/SnapKit/SnapKit.git",
-        requirement: .version(.init(5, 7, 0))
-    )
-    
-    // MARK: - My libraries
+
+    // MARK: - My own libraries
     static let loggingKit = PackageModel(
         name: "LoggingKit",
         url: "https://github.com/TimurkaevMalik/LoggingKit.git",
-        requirement: .version(.init(1, 1, 0))
+        requirement: .version(.init(1, 2, 0))
     )
     
     static let keychainStorageKit = PackageModel(
         name: "KeychainStorageKit",
         url: "https://github.com/TimurkaevMalik/KeychainStorageKit.git",
-        requirement: .version(.init(1, 1, 3))
+        requirement: .version(.init(1, 3, 0))
     )
-        
+    
     static let coreKit = PackageModel(
         name: "CoreKit",
         url: "https://github.com/TimurkaevMalik/CoreKit.git",
-        requirement: .version(.init(2, 0, 0))
+        requirement: .version(.init(2, 14, 0))
+    )
+    
+    static let networkKit = PackageModel(
+        name: "NetworkKit",
+        url: "https://github.com/TimurkaevMalik/NetworkKit.git",
+        requirement: .version(.init(1, 3, 0))
+    )
+    
+    static let helpersSharedUnsp = PackageModel(
+        name: "HelpersSharedUnsp",
+        url: "https://github.com/TimurkaevMalik/HelpersSharedUnsp.git",
+        requirement: .branch("main")
     )
 }
 
