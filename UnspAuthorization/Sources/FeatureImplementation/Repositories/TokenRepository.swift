@@ -106,7 +106,7 @@ private extension TokenRepository {
     }
     
     func setupStorageWith(userID: String) {
-        tokenStorage = tokenStorageFactory.make(with: "\(userID)")
+        tokenStorage = tokenStorageFactory.makeForUser(with: "\(userID)")
     }
     
     func validate(_ token: Token) throws(RepoError) {

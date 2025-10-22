@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreKit
+import KeychainStorageKit
+import HelpersSharedUnsp
 
 @MainActor
 public final class RootUnspAuthCoordinator: Coordinator {
@@ -20,7 +22,11 @@ public final class RootUnspAuthCoordinator: Coordinator {
     }
     
     public func start() {
-        showAuthEntryScreen()
+        if isUserAuthorized() {
+            finish()
+        } else {
+            showAuthEntryScreen()
+        }
     }
 }
 
@@ -46,6 +52,19 @@ private extension RootUnspAuthCoordinator {
             output: self
         )
         navigation.present(controller, animated: true)
+    }
+}
+
+private extension RootUnspAuthCoordinator {
+    func isUserAuthorized() -> Bool {
+        if let keychain =  KeychainStorageFactory().makeIfUserExists(from: UserDefaults.standard),
+           let token = try? keychain.string(forKey: StorageKeys.accessToken.rawValue),
+           !token.isEmpty {
+            
+            return true
+        }
+        
+        return false
     }
 }
 
