@@ -27,12 +27,12 @@ let package = Package(
         .target(
             name: featureName,
             dependencies: [
-//                .product(SPMDependency.snapKitWrapper.name),
-//                .product(SPMDependency.coreKit.name),
-//                .product(SPMDependency.networkKit.name),
-//                .product(SPMDependency.loggingKit.name),
-//                .product(SPMDependency.keychainStorageKit.name),
-//                .product(SPMDependency.helpersSharedUnsp.name)
+                .product(SPMDependency.snapKitWrapper.name),
+                .product(SPMDependency.coreKit.name),
+                .product(SPMDependency.networkKit.name),
+                .product(SPMDependency.loggingKit.name),
+                .product(SPMDependency.keychainStorageKit.name),
+                .product(SPMDependency.helpersSharedUnsp.name)
             ],
             path: featureName,
             sources: ["Sources"]
