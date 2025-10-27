@@ -1,5 +1,5 @@
 {
-  "originHash" : "541b0a9a66ba13a23ed7b154396610e1cf45eae45d4b8f03ec5742ddfdd44592",
+  "originHash" : "8994f19067f5be58a36b24bdb2a506241c757f6470619c32f59d4d1e0c344c6a",
   "pins" : [
     {
       "identity" : "corekit",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TimurkaevMalik/HelpersSharedUnsp.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "2c885a374d2c9b4053539ce1c93002d6f6b9a9d3"
+        "revision" : "6525b2bc00870aa562cd638bf5e0cafddaebfccc",
+        "version" : "1.1.0"
       }
     },
     {
