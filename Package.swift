@@ -3,17 +3,15 @@
 
 import PackageDescription
 
-let featureName = "UnspAuthorization"
+let projName = "UnspAuthorization"
+let projNameDynamic = projName + "-Dynamic"
 
 let package = Package(
-    name: featureName,
+    name: projName,
     platforms: [.iOS(.v15)],
     products: [
-        .library(
-            name: featureName,
-            type: .dynamic,
-            targets: [featureName]
-        ),
+        .library(name: projName, targets: [projName]),
+        .library(name: projNameDynamic, type: .dynamic, targets: [projName]),
     ],
     dependencies: [
 //        .make(from: SPMDependency.snapKitWrapper),
@@ -25,7 +23,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: featureName,
+            name: projName,
             dependencies: [
                 .product(SPMDependency.snapKitWrapper.name),
                 .product(SPMDependency.coreKit.name),
@@ -34,7 +32,7 @@ let package = Package(
                 .product(SPMDependency.keychainStorageKit.name),
                 .product(SPMDependency.helpersSharedUnsp.name)
             ],
-            path: featureName,
+            path: projName,
             sources: ["Sources"]
         )
     ]
